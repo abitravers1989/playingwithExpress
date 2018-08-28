@@ -1,23 +1,26 @@
 const express = require('express');
-
+const http = require('http');
+const fs = require('fs');
 
 
 const app = express();
 
-//console.log('listeners ' + app.listeners())
-console.log(app.listeners[0])
-console.log('post ' + app.post[0])
-//console.log('1st emit ' + app.emit)
-
-
-const myEventHandler = () => {
-    console.log("handler called")
-}
-
-app.on('alerter', myEventHandler);
-//console.log('2nd emit ' + app.emit)
-app.emit('alerter');
-//console.log('3rd emit ' + app.emit)
-
-//app.set('title', 'my site')
+app.set('title', 'my site')
 console.log(app.get('title'))
+
+console.log(app.get('/'))
+
+app.get('/', function (req, response) {
+    console.log(response)
+    response.send('hello world')
+})
+
+
+app.set('/hi', 'my site')
+app.get('/hi', function (req, res) {
+    fs.readFile('hello.md', (error, data) => {
+        if (error) throw error;
+        response.send(data.toString());
+    })
+})
+
