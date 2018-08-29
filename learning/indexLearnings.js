@@ -44,19 +44,13 @@ app.get('/new', (req, res, next) => {
 })
 
 
-var requestTime = (req, res, next) => {
-    req.requestTime = Date.now()
-    next()
+const requestTime = (req, res, next) => {
+    req.
 }
 
-app.get('/time', function (req, res) {
-    let responseText = 'Time post! <br>'
-    responseText += '<small> requested at:' + req.requestTime + '<small>'
-    res.send(responseText)
-})
+
 
 const printPort = (portNumber) => { console.log(`listening on port ${portNumber}`) }
 
 const port = 3000
 app.listen(port, printPort(port))
-
