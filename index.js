@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const fs = require('fs');
-
+const requestTime = require('./middleware/my-middleware');
 
 const app = express();
 
@@ -37,17 +37,21 @@ app.get('/errorHandling', (req, res, next) => {
 })
 
 app.get('/new', (req, res, next) => {
-    //console.log(next())
+    let myFirstPromise = new Promise((resolve, reject) => {
+        setTimeout(function () {
+            resolve("sucess!")
+        }, 250)
+    })
+
+    myFirstPromise.then((successMessage) => {
+        console.log("Yay " + successMessage)
+    })
     res.send("working?")
     next()
     console.log(next())
 })
 
-
-var requestTime = (req, res, next) => {
-    req.requestTime = Date.now()
-    next()
-}
+app.use(requestTime)
 
 app.get('/time', function (req, res) {
     let responseText = 'Time post! <br>'
