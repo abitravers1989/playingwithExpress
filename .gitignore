@@ -1,1 +1,4 @@
 node_modules
+creditcard.csv
+transactionsCredit.csv
+transactionsDebit.csv

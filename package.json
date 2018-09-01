@@ -1,14 +1,19 @@
 {
   "name": "expressexample",
   "version": "1.0.0",
-  "description": "",
+  "description": "xxx",
   "main": "index.js",
   "scripts": {
     "test": "npm t"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abitravers1989/playingwithExpress"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "csv-parser": "^1.12.1",
     "express": "^4.16.3",
     "moment": "^2.22.2"
   }
