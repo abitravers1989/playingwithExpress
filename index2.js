@@ -1,18 +1,15 @@
-const express = require('express');
-const http = require('http');
+const express = require('express');;
 const fs = require('fs');
 const requestTime = require('./middleware/my-middleware');
-const csv = require('csv-parser')
+const { v1 } = require('uuid');
 
 const app = express();
-
-console.log(app.get('/'))
 
 app.get('/', (req, res, next) => {
     readingFile(res, next)
 })
 
-const readingFile = function (res, next) {
+const readingFile = (res, next) => {
     fs.readFile('hello.md', (error, data) => {
         if (error) {
             next(error)
@@ -24,32 +21,17 @@ const readingFile = function (res, next) {
     })
 }
 
-app.post('/', function (req, res) {
-    res.send('got post request')
-})
-
-app.get('/new', (req, res, next) => {
-    const inputFile = 'transactions.csv';                                                                                                                                                                                                                                                                                                                                                                 ';
-    var parser = parse({delimiter: ','}, function (err, data){
-        async.eachSeries(data, function(line, callback) {
-            res.send(line).then(function(){
-                callback();
-            })
-        })
-    })
-    fs.createReadStream(inputFile).pipe(parser);
-})
-
-
-//write to a file. await this.. then read it 
-
-// app.use(requestTime)
-
-// app.get('/time', function (req, res) {
-//         let responseText = 'Time post! <br>'
-//         responseText += '<small> requested at:' + req.requestTime + '<small>'
-//         res.send(responseText)
+// app.post('/', (req, res) => {
+//     res.send('got post request')
+//     res.status(500).json({ error: 'message' });
 // })
+
+
+app.get('/posts', (req, res, next) => {
+    res.status(200).json({ title: 'first post title', content: 'first post', date: Date.now(), id: v1() });
+})
+
+module.exports = app;
 
 const printPort = (portNumber) => { console.log(`listening on port ${portNumber}`) }
 
