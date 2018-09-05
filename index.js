@@ -1,66 +1,56 @@
-const express = require('express');
-const http = require('http');
+const express = require('express');;
 const fs = require('fs');
 const requestTime = require('./middleware/my-middleware');
+const { v1 } = require('uuid');
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
-console.log(app.get('/'))
 
-app.get('/', function (req, response) {
-    //console.log(req.cookies)
-    response.send('hello world')
-    //response.writeHead(statusCode: status.valueOf)
+
+app.get('/', (req, res, next) => {
+    readingFile(res, next)
 })
 
-app.get('/hi', (req, res) => {
-    readingFile(res)
-})
-
-const readingFile = function (res) {
+const readingFile = (res, next) => {
     fs.readFile('hello.md', (error, data) => {
-        if (error) throw error;
-        res.send(data.toString());
-    })
-}
-
-app.get('/errorHandling', (req, res, next) => {
-    fs.readFile('non-existant-file', (error, data) => {
         if (error) {
-            //pass this error to express
             next(error)
         }
         else {
-            res.send(data)
+            res.send(data.toString());
         }
+        console.log(next())
     })
+}
+
+// app.post('/', (req, res) => {
+//     res.send('got post request')
+//     res.status(500).json({ error: 'message' });
+// })
+
+
+app.get('/posts', (req, res, next) => {
+    res.status(200).json({ title: 'first post title', content: 'first post', date: Date.now(), id: v1() });
 })
 
-app.get('/new', (req, res, next) => {
-    let myFirstPromise = new Promise((resolve, reject) => {
-        setTimeout(function () {
-            resolve("sucess!")
-        }, 250)
-    })
+//validate middleware. json etc
+app.use(bodyParser.urlencoded({ extended: false }));
 
-    myFirstPromise.then((successMessage) => {
-        console.log("Yay " + successMessage)
-    })
-    res.send("working?")
-    next()
-    console.log(next())
+app.post('/post', (req, res) => {
+    //res.status(200);
+    console.log(req.body)
+    if (req.body.title != typeof String) {
+        res.status(400)
+    }
+    res.send(`Post successful you can read it here: /{post.ID}`)
 })
 
-app.use(requestTime)
 
-app.get('/time', function (req, res) {
-    let responseText = 'Time post! <br>'
-    responseText += '<small> requested at:' + req.requestTime + '<small>'
-    res.send(responseText)
-})
+module.exports = app;
 
 const printPort = (portNumber) => { console.log(`listening on port ${portNumber}`) }
 
 const port = 3000
 app.listen(port, printPort(port))
-

@@ -4,7 +4,7 @@
   "description": "xxx",
   "main": "index.js",
   "scripts": {
-    "test": "npm t"
+    "test": "mocha --exit"
   },
   "repository": {
     "type": "git",
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "csv-parser": "^1.12.1",
     "csvtojson": "^2.0.8",
