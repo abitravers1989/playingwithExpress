@@ -40,7 +40,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.post('/post', (req, res) => {
     //res.status(200);
-    console.log(req.body)
+    //if is valid post work 
+
     if (req.body.title != typeof String) {
         res.status(400)
     }
