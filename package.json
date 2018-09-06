@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.309.0",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "csv-parser": "^1.12.1",
