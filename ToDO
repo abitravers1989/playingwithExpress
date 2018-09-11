@@ -10,3 +10,15 @@ other functionality - properly TDD
 
 mongobd
 other functionality tested.
+
+Steps of implementation:
+a)	CRUD routes – GET return JSON (e-2-e test)
+b)	Add middleware functionality (TDD – unit tests) : Validation .
+c)	Error handling – logging 
+d)	Swagger endpoints.
+e)	Save to Database – Mongo 
+f)	Add middleware functionality (TDD – unit tests) : which uses callbacks, promises and async await .
+g)	Authenticate – add bearer token which allows someone to /POST to it (TDD’d)
+h)	Docker-ise. 
+i)	Deploy
+j)	Stretch: Produce to kafka, consumer posts then save these to mongo.

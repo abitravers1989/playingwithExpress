@@ -2,6 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../index.js');
 const { v1 } = require('uuid');
+const _ = require('lodash');
 
 describe('GET /posts', () => {
     it('returns 200 status code', (done) => {
@@ -26,7 +27,7 @@ describe('POST /post', () => {
     it('returns 200 when a valid post is POSTED to the endPoint.', (done) => {
         request(app)
             .post('/post')
-            .send(JSON.stringify(validPost))
+            .send(validPost)
             //.set('Accept', 'application/json')
             .expect(200, done)
     })
@@ -34,7 +35,7 @@ describe('POST /post', () => {
     it('calls save when a valid post is POSTED')
 
 
-    it.only('returns 400 when the post is not valid. It does not call save functionality', (done) => {
+    it('returns 400 when the post is not valid. It does not call save functionality', (done) => {
         request(app)
             .post('/post')
             .send(JSON.stringify(invalidPost))
