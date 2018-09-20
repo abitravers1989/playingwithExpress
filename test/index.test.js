@@ -2,7 +2,7 @@ const request = require('supertest');
 const { expect } = require('chai');
 const app = require('../index.js');
 const { v1 } = require('uuid');
-const _ = require('lodash');
+
 
 describe('GET /posts', () => {
     it('returns 200 status code', (done) => {

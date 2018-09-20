@@ -25,11 +25,6 @@ const readingFile = (res, next) => {
     })
 }
 
-// app.post('/', (req, res) => {
-//     res.send('got post request')
-//     res.status(500).json({ error: 'message' });
-// })
-
 
 app.get('/posts', (req, res, next) => {
     res.status(200).json({ title: 'first post title', content: 'first post', date: Date.now(), id: v1() });
@@ -50,7 +45,6 @@ app.post('/post', (req, res) => {
     console.log(req.body);
     res.send(`Post successful you can read it here: /{post.ID}`).status(200)
 })
-
 
 module.exports = app;
 
