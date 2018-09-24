@@ -3,14 +3,33 @@ const express = require('express');;
 const { v1 } = require('uuid');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
-const readingFile = require('./middleware/readfile');
+//const readingFile = require('./middleware/readfile');
 
 const app = express();
 
-app.use(readingFile)
-app.get('/', (req, res, next) => {
-    readingFile(res, next)
+app.get('/', function (error, req, res, next) {
+    try {
+        return new Promise((resolve, reject) => {
+            fs.readFile('hello.md', (error, data) => {
+                if (data) {
+                    console.log(data)
+                    resolve(data)
+                    next();
+                } else {
+                    reject(Error('cannot read file'))
+                }
+            })
+        })
+
+    } catch {
+        throw (error);
+    }
 })
+
+
+// app.get('/', (req, res, next) => {
+//     readingFile(res, next)
+// })
 
 
 
