@@ -30,13 +30,34 @@ const authors = [
 
 function getPostById(id) {
     return new Promise((resolve, reject) => {
+        const post = posts.find(element => element.id === id)
         setTimeout(() => {
-            resolve(posts.find(element => element.id === id))
+            if (post) { resolve(post) }
+            else { reject(Error('No post')) }
         }, 200)
     })
 }
 
-getPostById(2)
-    .then(data => { console.log(data) });
+function findAuthorObject(authorName) {
+    return new Promise((resolve, reject) => {
+        // resolve(console.log(authorName))
+        // console.log(authors)
+        const author = authors.find(authorObject => authorObject.name === authorName)
+        if (author) {
+            resolve(author)
+        } else {
+            reject(Error('no author object'))
+        }
+    })
+}
 
-console.log("timing")
+getPostById(2)
+    .then(data => {
+        findAuthorObject(data.author)
+            .then(foundAuthor => { console.log(foundAuthor) })
+    })
+
+
+
+//replace author string with author object 
+
