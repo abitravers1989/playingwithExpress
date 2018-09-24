@@ -1,29 +1,17 @@
 const express = require('express');;
-const fs = require('fs');
-const requestTime = require('./middleware/my-middleware');
+
 const { v1 } = require('uuid');
 const bodyParser = require('body-parser');
 const _ = require('lodash');
+const readingFile = require('./middleware/readfile');
 
 const app = express();
 
-
-
+app.use(readingFile)
 app.get('/', (req, res, next) => {
     readingFile(res, next)
 })
 
-const readingFile = (res, next) => {
-    fs.readFile('hello.md', (error, data) => {
-        if (error) {
-            next(error)
-        }
-        else {
-            res.send(data.toString());
-        }
-        console.log(next())
-    })
-}
 
 
 app.get('/posts', (req, res, next) => {
